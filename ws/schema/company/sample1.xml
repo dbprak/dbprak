@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="company.xsd">
+<!-- valid instance with all possible combinations --> 
+	<department id="4711">
+		<name>Computer Science</name>
+		<locationcode>CSI</locationcode>
+		<employee id="10">
+			<firstname>John</firstname>
+			<lastname>Doe</lastname>
+			<mainproject ref="3434"/>	
+		</employee>
+		<employee id="11">
+			<firstname>Jane</firstname>
+			<lastname>Miller</lastname>
+			<mainproject ref="3499"/>
+		</employee>
+		<employee id="12">
+			<firstname>Jane</firstname>
+			<lastname>Miller</lastname>			
+		</employee>
+	</department>
+	<department id="4712">
+		<name>Mechanical Engineering</name>
+		<locationcode>MEE</locationcode>
+		<employee id="13">
+			<firstname>Marc</firstname>
+			<lastname>Skinner</lastname>			
+		</employee>
+	</department>
+		<department id="4713">
+		<name>Mathematics</name>
+		<locationcode>MAT</locationcode>
+	</department>
+	<project id="3434">
+		<name>Robot</name>
+		<budget>30000</budget>
+		<deadline>2008-11-30</deadline>
+	</project>
+	<project id="3499">
+		<name>Robot</name>
+		<budget>30000</budget>
+		<location ref="4711"/>
+	</project>
+	<workin>
+		<member ref="10"/>
+		<project ref="3434"/>
+		<since>2007-12-01T08:00:00.000</since> 
+	</workin>
+	<workin>
+		<member ref="12"/>
+		<project ref="3434"/>
+		<since>2007-12-15T08:00:00.000</since> 
+	</workin>	
+</company>

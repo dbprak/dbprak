@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="company.xsd">
+<!-- invalid instance with unresolved key references --> 
+	<department id="4711">
+		<name>Computer Science</name>
+		<locationcode>CSI</locationcode>
+		<employee id="10">
+			<firstname>John</firstname>
+			<lastname>Doe</lastname>
+			<!-- reference to unknown project -->
+			<mainproject ref="9999"/>		
+		</employee>
+		<employee id="11">
+			<firstname>Jane</firstname>
+			<lastname>Miller</lastname>	
+		</employee>
+		<employee id="12">
+			<firstname>Jane</firstname>
+			<lastname>Miller</lastname>			
+		</employee>
+	</department>
+	<department id="4712">
+		<name>Mechanical Engineering</name>
+		<locationcode>MEE</locationcode>
+		<employee id="13">
+			<firstname>Marc</firstname>
+			<lastname>Skinner</lastname>			
+		</employee>
+	</department>
+		<department id="4713">
+		<name>Mathematics</name>
+		<locationcode>MAT</locationcode>
+	</department>
+	<project id="3434">
+		<name>Robot</name>
+		<budget>30000</budget>
+		<deadline>2008-11-30</deadline>
+	</project>
+	<!-- reference to unknown department -->
+	<project id="3499">
+		<name>Robot</name>
+		<budget>30000</budget>
+		<location ref="9999"/>
+	</project>
+	<!-- reference to unknown project -->
+	<workin>	
+		<member ref="10"/>
+		<project ref="9999"/>
+		<since>2007-12-01T08:00:00.000</since> 
+	</workin>
+	<!-- reference to unknown employee -->
+	<workin>
+		<member ref="9999"/>
+		<project ref="3434"/>
+		<since>2007-12-15T08:00:00.000</since> 
+	</workin>
+</company>

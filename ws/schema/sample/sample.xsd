@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <!-- Definition of simple types for atomic (column) values -->
+ <xs:simpleType name="academicIdType">
+  <xs:restriction base="xs:long">
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="academicFirstnameType">
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="255"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="academicLastnameType">
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="255"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="academicDegreeType">
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="14"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="academicSalaryType">
+  <xs:restriction base="xs:double">
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="attendsApplicationType">
+  <xs:restriction base="xs:dateTime">
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="courseCodeType">
+  <xs:restriction base="xs:string">
+   <xs:minLength value="7"/>
+   <xs:maxLength value="7"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="courseTitleType">
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="50"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="courseSemesterType">
+  <xs:restriction base="xs:short">
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="studentStudentnumberType">
+  <xs:restriction base="xs:int">
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="studentFirstnameType">
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="255"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="studentLastnameType">
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="255"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <!-- Definition of complex types for (table) elements -->
+ <xs:complexType name="academicType">
+  <xs:sequence>
+   <xs:element name="firstname" type="academicFirstnameType" minOccurs="1" maxOccurs="1"/>
+   <xs:element name="lastname" type="academicLastnameType" minOccurs="1" maxOccurs="1"/>
+   <xs:element name="degree" type="academicDegreeType" minOccurs="0" maxOccurs="1"/>
+   <xs:element name="salary" type="academicSalaryType" minOccurs="0" maxOccurs="1"/>
+   <xs:element name="course" type="courseType" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  <xs:attribute name="id" type="academicIdType" use="required"/>
+ </xs:complexType>
+ <xs:complexType name="attendsType">
+  <xs:sequence>
+   <xs:element name="student" minOccurs="1" maxOccurs="1">
+    <xs:complexType>
+     <xs:attribute name="ref" type="studentStudentnumberType" use="required"/>
+    </xs:complexType>
+   </xs:element>
+   <xs:element name="course" minOccurs="1" maxOccurs="1">
+    <xs:complexType>
+     <xs:attribute name="ref" type="courseCodeType" use="required"/>
+    </xs:complexType>
+   </xs:element>
+   <xs:element name="application" type="attendsApplicationType" minOccurs="1" maxOccurs="1"/>
+  </xs:sequence>
+ </xs:complexType>
+ <xs:complexType name="courseType">
+  <xs:sequence>
+   <xs:element name="title" type="courseTitleType" minOccurs="1" maxOccurs="1"/>
+   <xs:element name="semester" type="courseSemesterType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  <xs:attribute name="code" type="courseCodeType" use="required"/>
+ </xs:complexType>
+ <xs:complexType name="studentType">
+  <xs:sequence>
+   <xs:element name="firstname" type="studentFirstnameType" minOccurs="1" maxOccurs="1"/>
+   <xs:element name="lastname" type="studentLastnameType" minOccurs="1" maxOccurs="1"/>
+   <xs:element name="supervisor" minOccurs="0" maxOccurs="1">
+    <xs:complexType>
+     <xs:attribute name="ref" type="academicIdType" use="required"/>
+    </xs:complexType>
+   </xs:element>
+   <xs:element name="assistant" minOccurs="0" maxOccurs="1">
+    <xs:complexType>
+     <xs:attribute name="ref" type="courseCodeType" use="required"/>
+    </xs:complexType>
+   </xs:element>
+  </xs:sequence>
+  <xs:attribute name="studentnumber" type="studentStudentnumberType" use="required"/>
+ </xs:complexType>
+ <!-- Definition of complex type for root (schema) element -->
+ <xs:complexType name="sampleType">
+  <xs:sequence>
+   <xs:element name="academic" type="academicType" minOccurs="0" maxOccurs="unbounded"/>
+   <xs:element name="attends" type="attendsType" minOccurs="0" maxOccurs="unbounded"/>
+   <xs:element name="student" type="studentType" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+ </xs:complexType>
+ <!-- Definition of root element with integrity contraints -->
+ <xs:element name="sample" type="sampleType">
+  <xs:key name="academicId">
+   <xs:selector xpath="academic"/>
+   <xs:field xpath="@id"/>
+  </xs:key>
+  <xs:keyref name="attendsStudentRef" refer="studentId">
+   <xs:selector xpath="attends/student"/> 
+   <xs:field xpath="@ref"/>
+  </xs:keyref>
+  <xs:keyref name="attendsCourseRef" refer="courseId">
+   <xs:selector xpath="attends/course"/> 
+   <xs:field xpath="@ref"/>
+  </xs:keyref>
+  <xs:key name="courseId">
+   <xs:selector xpath="academic/course"/>
+   <xs:field xpath="@code"/>
+  </xs:key>
+  <xs:keyref name="courseLecturerRef" refer="academicId">
+   <xs:selector xpath="academic/course/lecturer"/> 
+   <xs:field xpath="@ref"/>
+  </xs:keyref>
+  <xs:key name="studentId">
+   <xs:selector xpath="student"/>
+   <xs:field xpath="@studentnumber"/>
+  </xs:key>
+  <xs:keyref name="studentSupervisorRef" refer="academicId">
+   <xs:selector xpath="student/supervisor"/> 
+   <xs:field xpath="@ref"/>
+  </xs:keyref>
+  <xs:keyref name="studentAssistantRef" refer="courseId">
+   <xs:selector xpath="student/assistant"/> 
+   <xs:field xpath="@ref"/>
+  </xs:keyref>
+ </xs:element>
+</xs:schema>

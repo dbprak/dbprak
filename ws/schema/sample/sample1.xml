@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sample xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sample.xsd">
+	<!-- valid instance of a sample document --> 
+	<academic id="4711">
+		<firstname>Theo</firstname>
+		<lastname>Härder</lastname>
+		<!-- <degree>Prof. Dr.-Ing. Dr. h.c.</degree> -->		
+		<course code="INFOSYS">
+			<title>Informationssysteme</title>
+			<semester>20081</semester>
+		</course>
+	</academic>
+	<academic id="4712">
+		<firstname>Stefan</firstname>
+		<lastname>Deßloch</lastname>
+		<degree>Prof. Dr.-Ing.</degree>
+		<course code="DIGIBIB">
+			<title>Digitale Bibliotheken und Content Management</title>
+			<semester>20081</semester>
+		</course>
+	</academic>
+	<academic id="4713">
+		<firstname>Andreas</firstname>
+		<lastname>Reuter</lastname>
+		<!-- <degree>Prof. Dr.-Ing. Dr. h.c.</degree> -->
+	</academic>
+	<attends>
+		<student ref="4455"/>
+		<course ref="INFOSYS"/>
+		<application>2008-04-01T08:15:00.000</application>
+	</attends>
+	<attends>
+		<student ref="4456"/>
+		<course ref="DIGIBIB"/>
+		<application>2008-04-02T09:03:00.000</application>
+	</attends>
+	<student studentnumber="4455">
+		<firstname>Frank</firstname>
+		<lastname>Mayer</lastname>
+		<supervisor ref="4712"/>
+		<assistant ref="DIGIBIB"/>
+	</student>
+	<student studentnumber="4456">
+		<firstname>Julia</firstname>
+		<lastname>Hoffmann</lastname>
+		<supervisor ref="4711"/>
+	</student>	
+</sample>

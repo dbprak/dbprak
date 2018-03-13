@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="company2.xsd">
+<!-- invalid instance with non-unique violation -->  
+	<department id="4711">
+		<name>Computer Science</name>
+		<locationcode>CSI</locationcode>
+	</department>
+	<department id="4712">
+		<name>Mechanical Engineering</name>
+		<!-- non-unique locationcode -->
+		<locationcode>CSI</locationcode>
+	</department>		
+</company2>

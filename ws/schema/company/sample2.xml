@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="company.xsd">
+<!-- invalid instance with illegal missing structures --> 
+	<department id="4711">
+		<name>Computer Science</name>
+		<locationcode>CSI</locationcode>
+		<!-- Missing firstname -->
+		<employee id="10">
+			<lastname>Doe</lastname>			
+		</employee>
+		<!-- Missing id attribute -->
+		<employee>
+			<firstname>Jane</firstname>
+			<lastname>Miller</lastname>			
+		</employee>
+	</department>	
+</company>

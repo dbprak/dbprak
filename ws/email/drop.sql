@@ -1,0 +1,22 @@
+drop table use;
+drop table organization;
+drop table person;
+drop table user;
+drop table addressee;
+drop table email;
+drop table address;
+drop table text;
+drop table video;
+drop table picture;
+drop table attachment;
+drop type organization_t;
+drop type person_t;
+drop type user_t;
+alter type attachment_t drop attribute contained_in;
+drop type email_t;
+drop type address_t;
+drop type text_t;
+drop type video_t;
+drop type picture_t;
+drop type attachment_t; 
+
